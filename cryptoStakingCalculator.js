@@ -2,6 +2,8 @@
 const currencyName = 'ALGO'
 const crypto_AMOUNT = 7451.5233
 const apy = 5.53
+const pricePerCrypto = 0.732
+const fiatCurrency = '€'
 
 // calculate interests based on algo_amount and apy
 const getAmountForMonth = (crypto_AMOUNT) => {
@@ -52,9 +54,16 @@ const getAmountForTimespan = (years) => {
         console.log(`year ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
         console.log(`year ${i+1} - profit: \t${cryptoPerYear} \t${currencyName}`)
     }
-    console.log(`\nstarting value: \t${crypto_AMOUNT} \t\t${currencyName}`)
+    console.log(`\nstarting amount: \t${crypto_AMOUNT} \t\t${currencyName}`)
     console.log(`current amount: \t${currentCrypto}\t${currencyName}`)
     console.log(`profit after ${years} years: \t${currentCrypto - crypto_AMOUNT} \t${currencyName}\n`)
+
+    const startValue = crypto_AMOUNT * pricePerCrypto
+    const endValue = currentCrypto * pricePerCrypto
+
+    console.log(`\n\nstarting value: \t${startValue} \t\t${fiatCurrency}`)
+    console.log(`end value: \t\t${endValue} \t${fiatCurrency}`)
+    console.log(`profit: \t\t${endValue - startValue} \t${fiatCurrency}`)
 }
 
-getAmountForTimespan(5)
+getAmountForTimespan(15)
