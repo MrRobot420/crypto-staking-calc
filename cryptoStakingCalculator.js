@@ -2,7 +2,8 @@
 const currencyName = 'ALGO'
 const crypto_AMOUNT = 7451.5233
 const apy = 5.53
-const pricePerCrypto = 0.732
+const pricePerCryptoToday = 0.732
+const pricePerCryptoTomorrow = 10.52
 const fiatCurrency = '€'
 
 const LOGS_ON = false
@@ -60,12 +61,12 @@ const getAmountForTimespan = (years) => {
     console.log(`current amount: \t${currentCrypto}\t${currencyName}`)
     console.log(`profit in ${years} years: \t${currentCrypto - crypto_AMOUNT} \t${currencyName}`)
 
-    const startValue = crypto_AMOUNT * pricePerCrypto
-    const endValue = currentCrypto * pricePerCrypto
+    const startValue = crypto_AMOUNT * pricePerCryptoToday
+    const endValue = currentCrypto * pricePerCryptoTomorrow
 
     console.log(`\n\nstarting value: \t${startValue} \t\t${fiatCurrency}`)
     console.log(`end value: \t\t${endValue} \t${fiatCurrency}`)
     console.log(`profit in ${years} years: \t${endValue - startValue} \t${fiatCurrency}`)
 }
 
-getAmountForTimespan(15)
+getAmountForTimespan(30)
