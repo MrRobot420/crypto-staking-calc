@@ -5,6 +5,8 @@ const apy = 5.53
 const pricePerCrypto = 0.732
 const fiatCurrency = '€'
 
+const LOGS_ON = false
+
 // calculate interests based on algo_amount and apy
 const getAmountForMonth = (crypto_AMOUNT) => {
     const yearlyPercentage = (1 + (apy * 0.01))
@@ -12,7 +14,7 @@ const getAmountForMonth = (crypto_AMOUNT) => {
 
     const days = 30
     const amountPerYear = (((crypto_AMOUNT * yearlyPercentage)) - crypto_AMOUNT)
-    console.log(`\nyearlyAmount: \t\t${amountPerYear} \t${currencyName}`)
+    if (LOGS_ON) console.log(`\nyearlyAmount: \t\t${amountPerYear} \t${currencyName}`)
 
     let currentCrypto = crypto_AMOUNT
     for (let i = 0; i < days; i++) {
@@ -28,18 +30,18 @@ const getAmountForYear = (crypto_AMOUNT) => {
     let currentCrypto = crypto_AMOUNT
     let profit = 0
     let lastProfit = 0
-    console.log('\n\n----- new year -----')
+    if (LOGS_ON) console.log('\n\n----- new year -----')
     for (let i = 0; i < 12; i++) {
         const cryptoPerMonth = getAmountForMonth(currentCrypto)
         const currentProfitIncrease = cryptoPerMonth - lastProfit
         lastProfit = cryptoPerMonth
-        console.log(`month ${i + 1} - increase: \t${currentProfitIncrease} \t${currencyName}`)
+        if (LOGS_ON) console.log(`month ${i + 1} - increase: \t${currentProfitIncrease} \t${currencyName}`)
         currentCrypto = currentCrypto + cryptoPerMonth
-        console.log(`month ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
-        console.log(`month ${i+1} - profit: \t${cryptoPerMonth} \t${currencyName}`)
+        if (LOGS_ON) console.log(`month ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
+        if (LOGS_ON) console.log(`month ${i+1} - profit: \t${cryptoPerMonth} \t${currencyName}`)
     }
     profit = currentCrypto - crypto_AMOUNT
-    console.log(`\ntotal profit 1 year: \t${profit} \t${currencyName}\n`)
+    if (LOGS_ON) console.log(`\ntotal profit 1 year: \t${profit} \t${currencyName}\n`)
     return profit
 }
 
@@ -51,19 +53,19 @@ const getAmountForTimespan = (years) => {
     for (let i = 0; i < years; i++) {
         const cryptoPerYear = getAmountForYear(currentCrypto)
         currentCrypto = currentCrypto + cryptoPerYear
-        console.log(`year ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
-        console.log(`year ${i+1} - profit: \t${cryptoPerYear} \t${currencyName}`)
+        if (LOGS_ON) console.log(`year ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
+        if (LOGS_ON) console.log(`year ${i+1} - profit: \t${cryptoPerYear} \t${currencyName}`)
     }
     console.log(`\nstarting amount: \t${crypto_AMOUNT} \t\t${currencyName}`)
     console.log(`current amount: \t${currentCrypto}\t${currencyName}`)
-    console.log(`profit after ${years} years: \t${currentCrypto - crypto_AMOUNT} \t${currencyName}\n`)
+    console.log(`profit in ${years} years: \t${currentCrypto - crypto_AMOUNT} \t${currencyName}`)
 
     const startValue = crypto_AMOUNT * pricePerCrypto
     const endValue = currentCrypto * pricePerCrypto
 
     console.log(`\n\nstarting value: \t${startValue} \t\t${fiatCurrency}`)
     console.log(`end value: \t\t${endValue} \t${fiatCurrency}`)
-    console.log(`profit: \t\t${endValue - startValue} \t${fiatCurrency}`)
+    console.log(`profit in ${years} years: \t${endValue - startValue} \t${fiatCurrency}`)
 }
 
 getAmountForTimespan(15)
