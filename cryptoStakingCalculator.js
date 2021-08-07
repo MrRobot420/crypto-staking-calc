@@ -7,7 +7,7 @@ const fiatCurrency = '€'
 
 const LOGS_ON = false
 
-// calculate interests based on algo_amount and apy
+// calculate interests based on crypto_amount and apy
 const getAmountForMonth = (crypto_AMOUNT) => {
     const yearlyPercentage = (1 + (apy * 0.01))
     const dailyPercentage = 1 + ((yearlyPercentage - 1) / 365)
@@ -17,6 +17,7 @@ const getAmountForMonth = (crypto_AMOUNT) => {
     if (LOGS_ON) console.log(`\nyearlyAmount: \t\t${amountPerYear} \t${currencyName}`)
 
     let currentCrypto = crypto_AMOUNT
+    // get daily interests
     for (let i = 0; i < days; i++) {
         currentCrypto = currentCrypto * dailyPercentage
     }
@@ -24,13 +25,13 @@ const getAmountForMonth = (crypto_AMOUNT) => {
     return profit
 }
 
-// getAmountForMonth(Crypto_AMOUNT)
-
 const getAmountForYear = (crypto_AMOUNT) => {
     let currentCrypto = crypto_AMOUNT
     let profit = 0
     let lastProfit = 0
     if (LOGS_ON) console.log('\n\n----- new year -----')
+
+    // get monthly interests
     for (let i = 0; i < 12; i++) {
         const cryptoPerMonth = getAmountForMonth(currentCrypto)
         const currentProfitIncrease = cryptoPerMonth - lastProfit
@@ -45,11 +46,10 @@ const getAmountForYear = (crypto_AMOUNT) => {
     return profit
 }
 
-// getAmountForYear(crypto_AMOUNT)
-
 const getAmountForTimespan = (years) => {
-// getAmountForYear(crypto_AMOUNT)
     let currentCrypto = crypto_AMOUNT
+
+    // get yearly interests
     for (let i = 0; i < years; i++) {
         const cryptoPerYear = getAmountForYear(currentCrypto)
         currentCrypto = currentCrypto + cryptoPerYear
