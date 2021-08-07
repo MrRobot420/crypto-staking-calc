@@ -10,7 +10,7 @@ const getAmountForMonth = (crypto_AMOUNT) => {
 
     const days = 30
     const amountPerYear = (((crypto_AMOUNT * yearlyPercentage)) - crypto_AMOUNT)
-    console.log(`\namountPerYear: \t\t\t${amountPerYear} ${currencyName}`)
+    console.log(`\nyearlyAmount: \t\t${amountPerYear} \t${currencyName}`)
 
     let currentCrypto = crypto_AMOUNT
     for (let i = 0; i < days; i++) {
@@ -31,13 +31,13 @@ const getAmountForYear = (crypto_AMOUNT) => {
         const cryptoPerMonth = getAmountForMonth(currentCrypto)
         const currentProfitIncrease = cryptoPerMonth - lastProfit
         lastProfit = cryptoPerMonth
-        console.log(`month ${i + 1} - profitIncrease: \t${currentProfitIncrease} ${currencyName}`)
+        console.log(`month ${i + 1} - increase: \t${currentProfitIncrease} \t${currencyName}`)
         currentCrypto = currentCrypto + cryptoPerMonth
-        console.log(`month ${i+1} - current: \t\t${currentCrypto} ${currencyName}`)
-        console.log(`month ${i+1} - profit: \t\t${cryptoPerMonth} ${currencyName}`)
+        console.log(`month ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
+        console.log(`month ${i+1} - profit: \t${cryptoPerMonth} \t${currencyName}`)
     }
     profit = currentCrypto - crypto_AMOUNT
-    console.log(`\ntotal profit 1 year: \t\t${profit} ${currencyName}\n`)
+    console.log(`\ntotal profit 1 year: \t${profit} \t${currencyName}\n`)
     return profit
 }
 
@@ -49,11 +49,12 @@ const getAmountForTimespan = (years) => {
     for (let i = 0; i < years; i++) {
         const cryptoPerYear = getAmountForYear(currentCrypto)
         currentCrypto = currentCrypto + cryptoPerYear
-        console.log(`year ${i+1} - current: \t\t${currentCrypto} ${currencyName}`)
-        console.log(`year ${i+1} - profit: \t\t${cryptoPerYear} ${currencyName}`)
+        console.log(`year ${i+1} - current: \t${currentCrypto} \t${currencyName}`)
+        console.log(`year ${i+1} - profit: \t${cryptoPerYear} \t${currencyName}`)
     }
-    console.log(`\ntotal profit after ${years} years: \t${currentCrypto - crypto_AMOUNT} ${currencyName}`)
-    console.log(`starting value: \t\t${crypto_AMOUNT} ${currencyName}\n`)
+    console.log(`\nstarting value: \t${crypto_AMOUNT} \t\t${currencyName}`)
+    console.log(`current amount: \t${currentCrypto}\t${currencyName}`)
+    console.log(`profit after ${years} years: \t${currentCrypto - crypto_AMOUNT} \t${currencyName}\n`)
 }
 
-getAmountForTimespan(65)
+getAmountForTimespan(5)
